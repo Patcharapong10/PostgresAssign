@@ -75,8 +75,8 @@ planes_schema = planeSchema(many=True)
 @app.route('/planes', methods=['GET'])
 def get_staffs():
     all_staffs = planes.query.all()
-    result = planes_schema.dump(all_staffs)
-    return jsonify(result)
+    result1 = planes_schema.dump(all_staffs)
+    return jsonify(result1)
 
 # ################################### finish plane
 # ##############################begin customer
@@ -142,8 +142,8 @@ customers_schema = customerSchema(many=True)
 @app.route('/customers', methods=['GET'])
 def get_customers():
     all_customers = customers.query.all()
-    result = customers_schema.dump(all_customers)
-    return jsonify(result)
+    result2 = customers_schema.dump(all_customers)
+    return jsonify(result2)
 
 # ################################### finish customer
 
@@ -151,7 +151,7 @@ def get_customers():
 # Web Root Hello
 @app.route('/', methods=['GET'])
 def get():
-    result3 = db.session.execute("select * from customers inner join planes ")
+    result3 = db.session.query(customers).join(planes)
     return jsonify(result3)
 
 # Run Server
