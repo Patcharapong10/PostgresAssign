@@ -27,7 +27,7 @@ class plane(db.Model):
 # Create a plane
 @app.route('/plane', methods=['POST'])
 def add_plane():
-    id = request.json['id']
+    id = request.json['ID']
     nameplane = request.json['nameplane']
     genplane = request.json['genplane']
 
