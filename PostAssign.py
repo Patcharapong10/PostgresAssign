@@ -147,6 +147,7 @@ def get_customers():
 
 # ################################### finish customer
 
+
 # Web Root Hello
 @app.route('/', methods=['GET'])
 def get():
