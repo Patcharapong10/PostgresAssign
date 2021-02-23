@@ -24,11 +24,7 @@ class planes(db.Model):
         self.genplane = genplane
 
 
-
-
-
-
-# Create a Staff
+# Create a plane
 @app.route('/plane', methods=['POST'])
 def add_plane():
     id = request.json['id']
@@ -43,60 +39,31 @@ def add_plane():
     return plane_schema.jsonify(new_plane)
 
 
-
-# Update a Staff
+# Update a plane
 @app.route('/plane/<id>', methods=['PUT'])
 def update_plane(id):
-    staff = planes.query.get(id)
+    plane = planes.query.get(id)
     
     nameplane = request.json['nameplane']
     genplane = request.json['genplane']
 
-    staff.nameplane = nameplane
-    staff.genplane = genplane
+    plane.nameplane = nameplane
+    plane.genplane = genplane
 
     db.session.commit()
 
-    return plane_schema.jsonify(staff)
+    return plane_schema.jsonify(plane)
 
-
-
-# Delete Staff
+# Delete plane
 @app.route('/plane/<id>', methods=['DELETE'])
 def delete_plane(id):
-    staff = planes.query.get(id)
-    db.session.delete(staff)
+    plane = planes.query.get(id)
+    db.session.delete(plane)
     db.session.commit()
     
-    return plane_schema.jsonify(staff)
+    return plane_schema.jsonify(plane)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Staff Schema
+# plane Schema
 class planeSchema(ma.Schema):
     class Meta:
         fields =('id', 'nameplane', 'genplane')
@@ -105,17 +72,18 @@ class planeSchema(ma.Schema):
 plane_schema = planeSchema()
 planes_schema = planeSchema(many=True)
 
-# Web Root Hello
-@app.route('/', methods=['GET'])
-def get():
-    return jsonify({'ms': 'Hello Cloud Patcharapong'})
-
 @app.route('/planes', methods=['GET'])
 def get_staffs():
     all_staffs = planes.query.all()
     result = planes_schema.dump(all_staffs)
     return jsonify(result)
 
+# ################################### finish 
+
+# Web Root Hello
+@app.route('/', methods=['GET'])
+def get():
+    return jsonify({'ms': 'Hello Cloud Patcharapong'})
 
 # Run Server
 if __name__ == "__main__":
