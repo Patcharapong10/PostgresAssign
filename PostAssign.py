@@ -19,7 +19,6 @@ class plane(db.Model):
     nameplane = db.Column(db.String(50))
     genplane = db.Column(db.String(25))
     
-    
     def __init__(self, id, nameplane, genplane):
         self.id = id
         self.nameplane = nameplane
