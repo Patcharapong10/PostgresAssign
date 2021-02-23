@@ -151,8 +151,7 @@ def get_customers():
 # Web Root Hello
 @app.route('/', methods=['GET'])
 def get():
-    result3 = db.session.query(customers).join(planes)
-    return jsonify(result3)
+    return jsonify({'ms': 'Hello Cloud Patcharapong'})
 
 # Run Server
 if __name__ == "__main__":
