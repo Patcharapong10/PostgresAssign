@@ -78,7 +78,74 @@ def get_staffs():
     result = planes_schema.dump(all_staffs)
     return jsonify(result)
 
-# ################################### finish 
+# ################################### finish plane
+# ##############################begin customer
+class customers(db.Model):
+    id = db.Column(db.String(10), primary_key=True, unique=True)
+    namecustomer = db.Column(db.String(35))
+    sex = db.Column(db.String(5))
+    
+    def __init__(self, id, namecustomer, sex):
+        self.id = id
+        self.namecustomer = namecustomer
+        self.sex = sex
+
+
+# Create a plane
+@app.route('/customer', methods=['POST'])
+def add_customer():
+    id = request.json['id']
+    namecustomer = request.json['namecustomer']
+    sex = request.json['sex']
+
+    new_customer = customers(id, namecustomer, sex)
+
+    db.session.add(new_customer)
+    db.session.commit()
+
+    return customer_schema.jsonify(new_customer)
+
+
+# Update a customers
+@app.route('/customer/<id>', methods=['PUT'])
+def update_customer(id):
+    customer = customers.query.get(id)
+    
+    namecustomer = request.json['namecustomer']
+    sex = request.json['sex']
+
+    customer.namecustomer = namecustomer
+    customer.sex = sex
+
+    db.session.commit()
+
+    return customer_schema.jsonify(customer)
+
+# Delete customers
+@app.route('/customer/<id>', methods=['DELETE'])
+def delete_customer(id):
+    customer = customers.query.get(id)
+    db.session.delete(customer)
+    db.session.commit()
+    
+    return customer_schema.jsonify(customer)
+
+# customer Schema
+class customerSchema(ma.Schema):
+    class Meta:
+        fields =('id', 'namecustomer', 'sex')
+
+# Init Schema 
+customer_schema = customerSchema()
+customers_schema = customerSchema(many=True)
+
+@app.route('/customers', methods=['GET'])
+def get_staffs():
+    all_customers = customers.query.all()
+    result = customers_schema.dump(all_customers)
+    return jsonify(result)
+
+# ################################### finish customer
 
 # Web Root Hello
 @app.route('/', methods=['GET'])
