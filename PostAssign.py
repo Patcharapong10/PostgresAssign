@@ -28,6 +28,74 @@ class planes(db.Model):
 
 
 
+# Create a Staff
+@app.route('/plane', methods=['POST'])
+def add_plane():
+    id = request.json['id']
+    nameplane = request.json['nameplane']
+    genplane = request.json['genplane']
+
+    new_plane = planes(id, nameplane, genplane)
+
+    db.session.add(new_plane)
+    db.session.commit()
+
+    return plane_schema.jsonify(new_plane)
+
+
+
+# Update a Staff
+@app.route('/plane/<id>', methods=['PUT'])
+def update_plane(id):
+    staff = planes.query.get(id)
+    
+    nameplane = request.json['nameplane']
+    genplane = request.json['genplane']
+
+    staff.nameplane = nameplane
+    staff.genplane = genplane
+
+    db.session.commit()
+
+    return plane_schema.jsonify(staff)
+
+
+
+# Delete Staff
+@app.route('/plane/<id>', methods=['DELETE'])
+def delete_plane(id):
+    staff = planes.query.get(id)
+    db.session.delete(staff)
+    db.session.commit()
+    
+    return plane_schema.jsonify(staff)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Staff Schema
 class planeSchema(ma.Schema):
     class Meta:
