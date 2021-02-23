@@ -29,13 +29,13 @@ class planes(db.Model):
 
 
 # Staff Schema
-class StaffSchema(ma.Schema):
+class planeSchema(ma.Schema):
     class Meta:
         fields =('id', 'nameplane', 'genplane')
 
 # Init Schema 
-staff_schema = StaffSchema()
-staffs_schema = StaffSchema(many=True)
+plane_schema = planeSchema()
+planes_schema = planeSchema(many=True)
 
 # Web Root Hello
 @app.route('/', methods=['GET'])
@@ -45,7 +45,7 @@ def get():
 @app.route('/planes', methods=['GET'])
 def get_staffs():
     all_staffs = planes.query.all()
-    result = staffs_schema.dump(all_staffs)
+    result = planes_schema.dump(all_staffs)
     return jsonify(result)
 
 
