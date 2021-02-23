@@ -15,7 +15,7 @@ ma = Marshmallow(app)
 # ##############################begin plane
 #plane Class/Model
 class plane(db.Model):
-    id = db.Column(db.String(13), primary_key=True, unique=True)
+    id = db.Column(db.String(15), primary_key=True, unique=True)
     nameplane = db.Column(db.String(50))
     genplane = db.Column(db.String(25))
     
