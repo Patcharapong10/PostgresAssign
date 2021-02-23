@@ -3,7 +3,7 @@ from flask import Flask,request,jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 
-app = Flask(__name__)
+app = Flask(__nameplane__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] ='postgresql://webadmin:CVDggg44341@10.100.2.186:5432/CloudDB'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -12,81 +12,81 @@ db = SQLAlchemy(app)
 
 ma = Marshmallow(app)
 
-# ##############################begin Staffs
-#Staff Class/Model
-class Staffs(db.Model):
+# ##############################begin plane
+#plane Class/Model
+class plane(db.Model):
     id = db.Column(db.String(13), primary_key=True, unique=True)
-    name = db.Column(db.String(50))
-    email = db.Column(db.String(25))
-    phone = db.Column(db.String(10))
+    nameplane = db.Column(db.String(50))
+    genplane = db.Column(db.String(25))
     
-    def __init__(self, id, name, email, phone):
+    
+    def __init__(self, id, nameplane, genplane):
         self.id = id
-        self.name = name
-        self.email = email
-        self.phone = phone
+        self.nameplane = nameplane
+        self.genplane = genplane
 
-# Create a Staff
-@app.route('/staff', methods=['POST'])
-def add_staff():
+# Create a plane
+@app.route('/plane', methods=['POST'])
+def add_plane():
     id = request.json['id']
-    name = request.json['name']
-    email = request.json['email']
-    phone = request.json['phone']
+    nameplane = request.json['nameplane']
+    genplane = request.json['genplane']
 
-    new_staff = Staffs(id, name, email, phone)
+    new_plane = plane(id, nameplane, genplane)
 
-    db.session.add(new_staff)
+    db.session.add(new_plane)
     db.session.commit()
 
-    return staff_schema.jsonify(new_staff)
+    return plane_schema.jsonify(new_plane)
 
-# Update a Staff
-@app.route('/staff/<id>', methods=['PUT'])
-def update_staff(id):
-    staff = Staffs.query.get(id)
+# Update a plane
+@app.route('/plane/<id>', methods=['PUT'])
+def update_plane(id):
+    plane = plane.query.get(id)
     
-    name = request.json['name']
-    email = request.json['email']
-    phone = request.json['phone']
+    nameplane = request.json['nameplane']
+    genplane = request.json['genplane']
 
-    staff.name = name
-    staff.email = email
-    staff.phone = phone
+    plane.nameplane = nameplane
+    plane.genplane = genplane
 
     db.session.commit()
 
-    return staff_schema.jsonify(staff)
+    return plane_schema.jsonify(plane)
 
 
 
-# Delete Staff
-@app.route('/staff/<id>', methods=['DELETE'])
-def delete_staff(id):
-    staff = Staffs.query.get(id)
-    db.session.delete(staff)
+# Delete plane
+@app.route('/plane/<id>', methods=['DELETE'])
+def delete_plane(id):
+    plane = plane.query.get(id)
+    db.session.delete(plane)
     db.session.commit()
     
-    return staff_schema.jsonify(staff)
+    return plane_schema.jsonify(plane)
 
 
-# Staff Schema
-class StaffSchema(ma.Schema):
+# plane Schema
+class planechema(ma.Schema):
     class Meta:
-        fields =('id', 'name', 'email', 'phone')
+        fields =('id', 'nameplane', 'genplane')
 
 # Init Schema 
-staff_schema = StaffSchema()
-staffs_schema = StaffSchema(many=True)
+plane_schema = planechema()
+plane_schema = planechema(many=True)
 
 
-@app.route('/staffs', methods=['GET'])
-def get_staffs():
-    all_staffs = Staffs.query.all()
-    result = staffs_schema.dump(all_staffs)
+@app.route('/plane', methods=['GET'])
+def get_plane():
+    all_plane = plane.query.all()
+    result = plane_schema.dump(all_plane)
     return jsonify(result)
-# ######################################################finish staffs
+# ######################################################finish plane
 
+# #####################################################Begin 
+
+
+# #####################################################finish 
 
 # Web Root Hello
 @app.route('/', methods=['GET'])
