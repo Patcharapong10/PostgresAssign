@@ -54,7 +54,6 @@ def update_plane(id):
     return plane_schema.jsonify(plane)
 
 
-
 # Delete plane
 @app.route('/plane/<id>', methods=['DELETE'])
 def delete_plane(id):
