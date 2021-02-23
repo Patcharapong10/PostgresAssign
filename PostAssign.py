@@ -60,7 +60,6 @@ def update_staff(id):
     return staff_schema.jsonify(staff)
 
 
-
 # Delete Staff
 @app.route('/staff/<id>', methods=['DELETE'])
 def delete_staff(id):
