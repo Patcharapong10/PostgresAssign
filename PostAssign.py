@@ -140,7 +140,7 @@ customer_schema = customerSchema()
 customers_schema = customerSchema(many=True)
 
 @app.route('/customers', methods=['GET'])
-def get_staffs():
+def get_customers():
     all_customers = customers.query.all()
     result = customers_schema.dump(all_customers)
     return jsonify(result)
