@@ -41,8 +41,6 @@ def add_staff():
 
     return staff_schema.jsonify(new_staff)
 
-
-
 # Update a Staff
 @app.route('/staff/<id>', methods=['PUT'])
 def update_staff(id):
