@@ -12,6 +12,7 @@ db = SQLAlchemy(app)
 
 ma = Marshmallow(app)
 
+# ##############################begin Staffs
 #Staff Class/Model
 class Staffs(db.Model):
     id = db.Column(db.String(13), primary_key=True, unique=True)
@@ -80,16 +81,19 @@ class StaffSchema(ma.Schema):
 staff_schema = StaffSchema()
 staffs_schema = StaffSchema(many=True)
 
-# Web Root Hello
-@app.route('/', methods=['GET'])
-def get():
-    return jsonify({'ms': 'Hello Cloud Patcharapong'})
 
 @app.route('/staffs', methods=['GET'])
 def get_staffs():
     all_staffs = Staffs.query.all()
     result = staffs_schema.dump(all_staffs)
     return jsonify(result)
+# ######################################################finish staffs
+
+
+# Web Root Hello
+@app.route('/', methods=['GET'])
+def get():
+    return jsonify({'ms': 'Hello Cloud Patcharapong'})
 
 # Run Server
 if __name__ == "__main__":
