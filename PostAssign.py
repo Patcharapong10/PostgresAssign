@@ -60,6 +60,7 @@ def update_staff(id):
     return staff_schema.jsonify(staff)
 
 
+
 # Delete Staff
 @app.route('/staff/<id>', methods=['DELETE'])
 def delete_staff(id):
@@ -80,9 +81,9 @@ staff_schema = StaffSchema()
 staffs_schema = StaffSchema(many=True)
 
 # Web Root Hello
-#@app.route('/', methods=['GET'])
-#def get():
-#    return jsonify({'ms': 'Hello Cloud Patcharapong'})
+@app.route('/', methods=['GET'])
+def get():
+    return jsonify({'ms': 'Hello Cloud Patcharapong'})
 
 @app.route('/staffs', methods=['GET'])
 def get_staffs():
